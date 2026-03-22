@@ -16,6 +16,8 @@ export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
 
 # ─── NVM (lazy load) ──────────────────────────────────────────────────────────
 export NVM_DIR="$HOME/.nvm"
+# Eagerly add default node bin to PATH so global npm tools (e.g. claude) work without triggering nvm
+[[ -f "$NVM_DIR/alias/default" ]] && export PATH="$NVM_DIR/versions/node/$(cat $NVM_DIR/alias/default)/bin:$PATH"
 nvm() {
   unset -f nvm node npm npx
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
