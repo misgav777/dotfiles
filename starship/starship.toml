@@ -25,6 +25,39 @@ symbol = " "
 [golang]
 format = '[ ](bold cyan)'
 
+[cmd_duration]
+min_time = 10_000
+format = '[󱦟 $duration]($style) '
+style = 'bold yellow'
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = 'bold red'
+ahead = '⇡$count'
+behind = '⇣$count'
+modified = '!$count'
+staged = '+$count'
+untracked = '?$count'
+deleted = '✘$count'
+
+[python]
+format = '[ $version]($style) '
+style = 'bold yellow'
+detect_extensions = ['py']
+
+[terraform]
+format = '[ $workspace]($style) '
+style = 'bold mauve'
+
+[nodejs]
+format = '[ $version]($style) '
+style = 'bold green'
+detect_files = ['package.json']
+
+[dotnet]
+format = '[ $version]($style) '
+style = 'bold blue'
+
 [kubernetes]
 symbol = '☸ '
 disabled = true

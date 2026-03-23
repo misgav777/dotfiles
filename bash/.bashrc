@@ -1,23 +1,3 @@
-# ─── Completions ──────────────────────────────────────────────────────────────
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
-  compinit
-else
-  compinit -C
-fi
-
-# ─── Plugins ──────────────────────────────────────────────────────────────────
-_src() { local f; for f in "$@"; do [[ -f "$f" ]] && { source "$f"; return; }; done; }
-_src /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-     /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-     /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-[[ -f ~/dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && \
-  source ~/dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
-_src /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-     /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
-     /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-unset -f _src
-
 # ─── Environment ──────────────────────────────────────────────────────────────
 export LC_TIME=en_US.UTF-8
 export EDITOR='nvim'
@@ -37,8 +17,8 @@ nvm() {
   [[ -s "$_sh" ]] || _sh="$NVM_DIR/nvm.sh"
   local _comp="/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
   [[ -s "$_comp" ]] || _comp="$NVM_DIR/bash_completion"
-  [[ -s "$_sh" ]]   && \. "$_sh"
-  [[ -s "$_comp" ]] && \. "$_comp"
+  [[ -s "$_sh" ]]   && . "$_sh"
+  [[ -s "$_comp" ]] && . "$_comp"
   nvm "$@"
 }
 node() { nvm use default --silent; node "$@"; }
@@ -52,21 +32,15 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # ─── Terraform ────────────────────────────────────────────────────────────────
 alias tf='terraform'
 if _tf=$(command -v terraform 2>/dev/null); then
-  autoload -U +X bashcompinit && bashcompinit
   complete -o nospace -C "$_tf" terraform
   unset _tf
 fi
 
-# ─── Keybindings ──────────────────────────────────────────────────────────────
-bindkey -v
-bindkey '^R' history-incremental-search-backward
-
 # ─── Integrations ─────────────────────────────────────────────────────────────
-[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 [[ -f "$HOME/.local/bin/env" ]] && . "$HOME/.local/bin/env"
 
 # ─── Prompt ───────────────────────────────────────────────────────────────────
-command -v starship &>/dev/null && eval "$(starship init zsh)"
+command -v starship &>/dev/null && eval "$(starship init bash)"
 
 # ─── fzf ──────────────────────────────────────────────────────────────────────
-command -v fzf &>/dev/null && eval "$(fzf --zsh)"
+command -v fzf &>/dev/null && eval "$(fzf --bash)"
