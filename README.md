@@ -14,7 +14,7 @@ My personal terminal configuration — works on macOS and Amazon Linux.
 ## Install
 
 ```bash
-git clone <repo-url> ~/dotfiles
+git clone https://github.com/misgav777/dotfiles.git ~/dotfiles
 bash ~/dotfiles/install.sh
 ```
 
