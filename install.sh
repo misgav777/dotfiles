@@ -61,15 +61,27 @@ install_macos() {
 install_amazon() {
   log "Installing base packages..."
   if command -v dnf &>/dev/null; then
-    sudo dnf install -y git curl zsh tmux fzf unzip tar
+    sudo dnf install -y git curl zsh tmux unzip tar
   else
     sudo yum install -y git curl zsh tmux unzip tar
-    # fzf not in yum on AL2 — install from git
-    if ! command -v fzf &>/dev/null; then
-      git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-      ~/.fzf/install --bin
-      sudo cp ~/.fzf/bin/fzf /usr/local/bin/fzf
-    fi
+  fi
+
+  # fzf — not in AL2 or AL2023 repos, install from GitHub release
+  if ! command -v fzf &>/dev/null; then
+    log "Installing fzf..."
+    local arch; arch=$(uname -m)
+    local ver; ver=$(curl -fsSL "https://api.github.com/repos/junegunn/fzf/releases/latest" \
+      | grep '"tag_name"' | sed 's/.*"v\([^"]*\)".*/\1/')
+    local tarball
+    case "$arch" in
+      x86_64)  tarball="fzf-${ver}-linux_amd64.tar.gz" ;;
+      aarch64) tarball="fzf-${ver}-linux_arm64.tar.gz" ;;
+    esac
+    local tmpdir; tmpdir=$(mktemp -d)
+    curl -fsSL "https://github.com/junegunn/fzf/releases/download/v${ver}/${tarball}" \
+      | tar -xz -C "$tmpdir"
+    sudo mv "$tmpdir/fzf" /usr/local/bin/fzf
+    rm -rf "$tmpdir"
   fi
 
   # neovim — not in standard repos, install from GitHub release
