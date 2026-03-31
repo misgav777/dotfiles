@@ -168,7 +168,11 @@ symlink "$DOTFILES/markdownlint/.markdownlint.yaml"     "$HOME/.markdownlint.yam
 # ─── Default shell ────────────────────────────────────────────────────────────
 if [[ "$SHELL" != */zsh ]] && command -v zsh &>/dev/null; then
   log "Changing default shell to zsh..."
-  chsh -s "$(command -v zsh)"
+  if command -v chsh &>/dev/null; then
+    chsh -s "$(command -v zsh)"
+  else
+    usermod -s "$(command -v zsh)" "$USER"
+  fi
 fi
 
 log "Done! Open a new shell or run: exec zsh"
