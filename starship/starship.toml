@@ -1,6 +1,6 @@
 add_newline = false
 # A minimal left prompt
-format = """$hostname$directory$character"""
+format = """$directory$character"""
 palette = "catppuccin_mocha"
 # move the rest of the prompt to the right
 right_format = """$all"""
@@ -11,11 +11,6 @@ vicmd_symbol = "[N] >>>"
 success_symbol = '[➜](bold green)'
 
 
-[hostname]
-ssh_only = false
-format = '[$hostname]($style) '
-style = 'bold yellow'
-trim_at = '.amazonaws.com'
 
 [git_branch]
 format =  '[$symbol$branch(:$remote_branch)]($style)'
