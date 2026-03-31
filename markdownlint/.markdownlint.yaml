@@ -1,0 +1,16 @@
+default: true
+
+# Line length — too strict for tables and code docs
+MD013: false
+
+# Blanks around headings — overly pedantic
+MD022: false
+
+# Blanks around fences — overly pedantic
+MD031: false
+
+# Emphasis used as heading — common pattern in docs
+MD036: false
+
+# Table column style — causes false positives with complex tables
+MD060: false

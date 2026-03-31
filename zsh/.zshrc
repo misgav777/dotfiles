@@ -8,12 +8,14 @@ fi
 
 # ─── Plugins ──────────────────────────────────────────────────────────────────
 _src() { local f; for f in "$@"; do [[ -f "$f" ]] && { source "$f"; return; }; done; }
-_src /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
+_src ~/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh \
+     /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
      /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
      /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ~/dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh ]] && \
   source ~/dotfiles/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
-_src /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+_src ~/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+     /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
      /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
      /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 unset -f _src
