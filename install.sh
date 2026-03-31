@@ -61,7 +61,8 @@ install_macos() {
 install_amazon() {
   log "Installing base packages..."
   if command -v dnf &>/dev/null; then
-    sudo dnf install -y git curl zsh tmux unzip tar
+    # curl-minimal is pre-installed on AL2023 AMIs and conflicts with curl; skip it
+    sudo dnf install -y git zsh tmux unzip tar
   else
     sudo yum install -y git curl zsh tmux unzip tar
   fi
